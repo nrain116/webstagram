@@ -20,7 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'username',
         'email',
         'password',
-        'profile_picture_path',
+        'profile_photo_url',
     ];
 
     protected $hidden = [
@@ -32,17 +32,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Send the email verification notification.
-     */
+    
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail());
     }
 
-    /**
-     * Mark the user's email as verified.
-     */
+    
     public function markEmailAsVerified(): bool
     {
         return $this->forceFill([
@@ -72,22 +68,21 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->withTimestamps();
     }
 
-    /**
-     * Accessor for profile photo URL.
-     * Returns the public URL for the stored profile picture or a default image.
-     */
+    
     public function getProfilePhotoUrlAttribute(): string
     {
-        if ($this->profile_picture) {
-            // If file is stored under public/ (e.g. public/images/...), prefer asset()
-            if (file_exists(public_path($this->profile_picture))) {
-                return asset($this->profile_picture);
-            }
+        $path = $this->attributes['profile_photo_url'] ?? null;
 
-            // Fallback to Storage disk URL (e.g. storage/app/public/...)
-            if (Storage::exists($this->profile_picture)) {
-                return Storage::url($this->profile_picture);
-            }
+        if (!$path) {
+            return asset('images/default-avatar.png');
+        }
+
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            return $path;
+        }
+
+        if (file_exists(public_path($path))) {
+            return asset($path);
         }
 
         return asset('images/default-avatar.png');

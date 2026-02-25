@@ -31,14 +31,14 @@ class PostController extends Controller
     {
         $data = $request->validate([
             'description' => 'required|string|max:1000',
-            'image' => 'nullable|image|max:5120', // 5MB max
+            'image_url' => 'nullable|image|max:5120', // 5MB max
         ]);
 
         $user = Auth::user();
         $imagePath = null;
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
+        if ($request->hasFile('image_url')) {
+            $file = $request->file('image_url');
             $publicDir = public_path('images/posts');
 
             if (! File::exists($publicDir)) {
@@ -53,7 +53,7 @@ class PostController extends Controller
         Post::create([
             'user_id' => $user->id,
             'description' => $data['description'],
-            'image_path' => $imagePath,
+            'image_url' => $imagePath,
         ]);
 
         return redirect()->route('timeline')->with('status', 'Post created successfully!');
@@ -77,16 +77,14 @@ class PostController extends Controller
         $like = $post->likes()->where('user_id', $user->id)->first();
 
         if ($like) {
-            // If the user has already liked the post, remove the like (unlike)
             $like->delete();
         } else {
-            // If the user hasn't liked the post, add a like
             $post->likes()->create([
                 'user_id' => $user->id,
             ]);
         }
 
-        return back();  // Go back to the post's page
+        return back();
     }
 
     public function unlike(Post $post)
@@ -106,8 +104,8 @@ class PostController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        if ($post->image_path && File::exists(public_path($post->image_path))) {
-            File::delete(public_path($post->image_path));
+        if ($post->image_url && File::exists(public_path($post->image_url))) {
+            File::delete(public_path($post->image_url));
         }
 
         $post->delete();

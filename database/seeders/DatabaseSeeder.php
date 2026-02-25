@@ -8,11 +8,21 @@ use App\Models\Follow;
 use App\Models\Like;
 use App\Events\UserFollowed;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
+
+        // admin id 1
+        User::factory()->create([
+            'username' => 'admin',
+            'email' => 'admin@example.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('root'),
+            'remember_token' => Str::random(10),
+        ]);
         // Create 10 users
         $users = User::factory(10)->create();
 

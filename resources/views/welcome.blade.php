@@ -14,8 +14,8 @@
 
         <!-- Buttons -->
         <div class="space-x-4">
-            <a href="{{ route('login') }}">Login</a>
-            <a href="{{ route('register') }}">Register</a>
+            <a href="{{ route('login') }}">Anmelden</a>
+            <a href="{{ route('register') }}">Registrieren</a>
         </div>
     </div>
 

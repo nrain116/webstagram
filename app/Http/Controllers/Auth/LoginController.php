@@ -75,7 +75,7 @@ class LoginController extends Controller
                 $user = User::create([
                     'github_id' => $githubUser->getId(),
                     'email' => $githubUser->getEmail(),
-                    'profile_picture_path' => $githubUser->getAvatar(),
+                    'profile_photo_url' => $githubUser->getAvatar(),
                     'username' => $username, 
                     'password' => null,
                 ]);

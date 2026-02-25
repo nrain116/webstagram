@@ -1,12 +1,12 @@
 {{-- resources/views/auth/reset.blade.php --}}
 @extends('layouts.app')
 
-@section('title', 'Reset Password - WebmasterGram')
+@section('title', 'Passwort zurücksetzen - WebmasterGram')
 
 @section('content')
 <div class="container mx-auto max-w-md mt-16 p-6 bg-white shadow-lg rounded-lg">
     <img src="{{ asset('images/cover.png') }}" alt="Logo" class="mx-auto mb-6 max-w-xs h-auto">
-    <h2 class="text-2xl font-bold text-center mb-6">Reset your password</h2>
+    <h2 class="text-2xl font-bold text-center mb-6">Passwort zurücksetzen</h2>
 
     @if (session('status'))
         <div class="mb-4 text-green-600">{{ session('status') }}</div>
@@ -25,16 +25,16 @@
     <form method="POST" action="#">
         @csrf
         <div class="mb-4">
-            <label for="email" class="block text-gray-700 mb-1">Email Address</label>
+            <label for="email" class="block text-gray-700 mb-1">E-Mail-Adresse</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}" required
                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
 
-        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Send Password Reset Link</button>
+        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Link zum Zurücksetzen des Passworts senden</button>
     </form>
 
     <p class="mt-6 text-center text-gray-500 text-sm">
-        Remembered? <a href="{{ route('login') }}" class="text-blue-500">Sign In</a>
+        Wieder eingefallen? <a href="{{ route('login') }}" class="text-blue-500">Anmelden</a>
     </p>
 </div>
 @endsection

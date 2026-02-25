@@ -2,11 +2,11 @@
 
 @extends('layouts.app')
 
-@section('title', 'Create Post - WebmasterGram')
+@section('title', 'Beitrag erstellen - WebmasterGram')
 
 @section('content')
 <div class="container mx-auto max-w-2xl mt-16 p-6 bg-white shadow-lg rounded-lg">
-    <h2 class="text-2xl font-bold mb-6">Create a New Post</h2>
+    <h2 class="text-2xl font-bold mb-6">Einen neuen Beitrag erstellen</h2>
 
     @if ($errors->any())
         <div class="mb-4 text-red-600">
@@ -22,7 +22,7 @@
         @csrf
 
         <div class="mb-4">
-            <label for="description" class="block text-gray-700 font-medium mb-2">Description</label>
+            <label for="description" class="block text-gray-700 font-medium mb-2">Beschreibung</label>
             <textarea id="description" name="description" rows="5"
                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('description') border-red-500 @enderror"
                       required>{{ old('description') }}</textarea>
@@ -32,21 +32,21 @@
         </div>
 
         <div class="mb-4">
-            <label for="image" class="block text-gray-700 font-medium mb-2">Image</label>
-            <input type="file" id="image" name="image" accept="image/*"
-                   class="w-full px-4 py-2 border rounded-lg @error('image') border-red-500 @enderror">
-            <p class="text-gray-500 text-sm mt-1">Optional. Max 5MB.</p>
-            @error('image')
+            <label for="image_url" class="block text-gray-700 font-medium mb-2">Bild</label>
+            <input type="file" id="image_url" name="image_url" accept="image/*"
+                   class="w-full px-4 py-2 border rounded-lg @error('image_url') border-red-500 @enderror">
+            <p class="text-gray-500 text-sm mt-1">Optional. Max. 5 MB.</p>
+            @error('image_url')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
 
         <div class="flex gap-2">
             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg">
-                Post
+                Veröffentlichen
             </button>
             <a href="{{ route('timeline') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg">
-                Cancel
+                Abbrechen
             </a>
         </div>
     </form>

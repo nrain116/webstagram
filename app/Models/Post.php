@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'description', 'image_path'];
+    protected $fillable = ['user_id', 'description', 'image_url'];
 
     public function user(): BelongsTo
     {
@@ -42,8 +42,8 @@ class Post extends Model
     }
 
     // accessor used in views
-    public function getImagePathAttribute(): string
+    public function getImageUrlAttribute(): string
     {
-        return $this->attributes['image_path'] ?? '';
+        return $this->attributes['image_url'] ?? '';
     }
 }

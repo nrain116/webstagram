@@ -1,12 +1,12 @@
 @component('mail::message')
-# New Follower Alert
+# Neuer Follower Alarm
 
-You have a new follower: **{{ $followerName }}** ({{ $followerEmail }})
+Du hast einen neuen Follower: **{{ $followerName }}** ({{ $followerEmail }})
 
 @component('mail::button', ['url' => route('profile.show', $followerName)])
-View Profile
+Profil ansehen
 @endcomponent
 
-Thanks,<br>
+Danke,<br>
 {{ config('app.name') }}
 @endcomponent

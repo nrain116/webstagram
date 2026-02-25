@@ -47,9 +47,7 @@ class ProfileController extends Controller
         return redirect()->back()->with('status', 'Profile updated.');
     }
 
-    /**
-     * Upload or replace profile photo. Stores file under public/images and saves relative path.
-     */
+    
     public function photo(Request $request, User $user)
     {
         if (Auth::id() !== $user->id) {
@@ -57,10 +55,10 @@ class ProfileController extends Controller
         }
 
         $request->validate([
-            'profile_photo' => 'required|image|max:5120',
+            'profile_photo_url' => 'required|image|max:5120',
         ]);
 
-        $file = $request->file('profile_photo');
+        $file = $request->file('profile_photo_url');
 
         $publicDir = public_path('images');
         if (! File::exists($publicDir)) {
@@ -68,11 +66,12 @@ class ProfileController extends Controller
         }
 
         // remove previous file if it exists and is inside public/images
-        if ($user->profile_picture && File::exists(public_path($user->profile_picture))) {
+        $oldPath = $user->getRawOriginal('profile_photo_url');
+        if ($oldPath && File::exists(public_path($oldPath))) {
             try {
-                File::delete(public_path($user->profile_picture));
+                File::delete(public_path($oldPath));
             } catch (\Throwable $e) {
-                // ignore deletion errors
+                // ignore
             }
         }
 
@@ -81,7 +80,7 @@ class ProfileController extends Controller
 
         $file->move($publicDir, $filename);
 
-        $user->profile_picture = 'images/' . $filename;
+        $user->profile_photo_url = 'images/' . $filename;
         $user->save();
 
         return redirect()->back()->with('status', 'Profile photo updated.');
@@ -95,10 +94,17 @@ class ProfileController extends Controller
         /** @var \App\Models\User|null $me */
         $me = Auth::user();
         if (! $me instanceof User || $me->id === $user->id) {
+            if (request()->ajax()) {
+                return response()->json(['error' => 'Cannot follow self'], 400);
+            }
             return redirect()->back();
         }
 
         $me->following()->syncWithoutDetaching([$user->id]);
+
+        if (request()->ajax()) {
+            return response()->json(['success' => true, 'is_following' => true]);
+        }
 
         return redirect()->back()->with('status', 'Now following ' . $user->username);
     }
@@ -111,10 +117,17 @@ class ProfileController extends Controller
         /** @var \App\Models\User|null $me */
         $me = Auth::user();
         if (! $me instanceof User || $me->id === $user->id) {
+            if (request()->ajax()) {
+                return response()->json(['error' => 'Invalid request'], 400);
+            }
             return redirect()->back();
         }
 
         $me->following()->detach($user->id);
+
+        if (request()->ajax()) {
+            return response()->json(['success' => true, 'is_following' => false]);
+        }
 
         return redirect()->back()->with('status', 'Unfollowed ' . $user->username);
     }

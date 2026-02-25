@@ -14,9 +14,9 @@ class TimelineController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
-        // Load authenticated user as an Eloquent model (best practice)
+        // Load authenticated user
         $authId = Auth::id();
         $user = $authId ? User::with('following')->find($authId) : null;
 
@@ -29,7 +29,16 @@ class TimelineController extends Controller
             $following = $user->following()->limit(10)->get();
         }
 
-        // Include self in timeline (only include non-null IDs)
+        // Search logic
+        $searchResults = null;
+        $searchQuery = $request->input('query');
+        if ($searchQuery) {
+            $searchResults = User::where('username', 'like', "%{$searchQuery}%")
+                                 ->take(10)
+                                 ->get();
+        }
+
+        
         $ids = array_filter(array_merge([$authId], $followingIds ?: []));
 
         $posts = Post::with('user', 'likes')
@@ -38,6 +47,6 @@ class TimelineController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('timeline.index', compact('posts', 'following'));
+        return view('timeline.index', compact('posts', 'following', 'searchResults', 'searchQuery'));
     }
 }

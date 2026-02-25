@@ -10,7 +10,6 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -38,7 +37,6 @@ Route::get('auth/github/callback', [LoginController::class, 'handleGitHubCallbac
 /**
  * User Routes
  */
-Route::get('/users/search', [UserController::class, 'search'])->name('users.search')->middleware('auth');
 
 /**
  * Password Reset Routes

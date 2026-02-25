@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Email Verification</title>
+    <title>E-Mail-Verifizierung</title>
 </head>
 <body>
-    <h1>Hello {{ $user->name }}</h1>
-    <p>Thank you for registering with us. Please click the link below to verify your email address:</p>
-    <a href="{{ $verificationUrl }}">Verify My Email</a>
+    <h1>Hallo {{ $user->name }}</h1>
+    <p>Vielen Dank für Ihre Registrierung bei uns. Bitte klicken Sie auf den untenstehenden Link, um Ihre E-Mail-Adresse zu verifizieren:</p>
+    <a href="{{ $verificationUrl }}">Meine E-Mail verifizieren</a>
 </body>
 </html>
