@@ -15,7 +15,7 @@ class PostFactory extends Factory
         return [
             'user_id' => User::factory(),  // Random user for each post
             'description' => $this->faker->paragraph(),  // Random post description
-            'image_url' => "https://picsum.photos/640/480",  // Random image URL for post
+            'image_url' => "https://static.photos/640x360",  // Random image URL for post
         ];
     }
 }

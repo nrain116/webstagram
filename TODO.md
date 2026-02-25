@@ -17,21 +17,21 @@
 
 ## 3. Posts
 - [x] Erstellung eines neuen Posts mit **Beschreibung** und optionalem Bild.
-- [ ] Anzeige von Posts anderer Nutzer auf der Timeline.
-- [ ] Liken und Entliken von Posts anderer Nutzer.
-- [ ] Anzeige von **Likes-Zahl** und **Upload-Datum** bei jedem Post.
+- [x] Anzeige von Posts anderer Nutzer auf der Timeline.
+- [x] Liken und Entliken von Posts anderer Nutzer.
+- [x] Anzeige von **Likes-Zahl** und **Upload-Datum** bei jedem Post.
 - [x] Löschen von eigenen Posts (inklusive Bilddatei).
 
 ## 4. Timeline & Feed
 - [x] Timeline als erste Seite nach Login.
 - [x] Anzeige von eigenen Posts + Posts gefolgter Nutzer.
-- [ ] Anzeige einer **Liste aller gefolgten Nutzer** neben der Timeline.
+- [x] Anzeige einer **Liste aller gefolgten Nutzer** neben der Timeline.
 
 ## 5. Soziales Netzwerk
-- [ ] Nutzer können andere Nutzer **folgen** und **entfolgen**.
-- [ ] Aufrufbare Profile anderer Nutzer.
-- [ ] Möglichkeit, nach Nutzern via **Username** zu suchen.
-- [ ] E-Mail-Benachrichtigung bei neuem Follower (mit **Events** und **Queues**).
+- [x] Nutzer können andere Nutzer **folgen** und **entfolgen**.
+- [x] Aufrufbare Profile anderer Nutzer.
+- [x] Möglichkeit, nach Nutzern via **Username** zu suchen.
+- [x] E-Mail-Benachrichtigung bei neuem Follower (mit **Events** und **Queues**).
 
 ## 6. Code & Architektur
 - [ ] Fehler und Ausnahmen angemessen behandeln.

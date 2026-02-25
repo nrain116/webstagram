@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
-            'profile_photo_url' => "https://picsum.photos/200/200",
+            'profile_photo_url' => "https://static.photos/people/200x200",
             'github_id' => $this->faker->unique()->uuid(),
             'remember_token' => Str::random(10),
         ];

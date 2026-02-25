@@ -35,30 +35,29 @@
                             </div>
 
                             <p class="mt-3 text-gray-700">{{ $post->description ?? 'Beitragbeschreibung' }}</p>
-
-                            <div class="mt-4">
-                                @auth
-                                    @if($post->likedBy(auth()->user()))
-                                        <form action="{{ route('unlike', $post) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="bg-red-500 text-white py-1 px-3 rounded">Gefällt mir nicht mehr</button>
-                                        </form>
-                                    @else
-                                        <form action="{{ route('like', $post) }}" method="POST" class="inline">
-                                            @csrf
-                                            <button class="bg-blue-500 text-white py-1 px-3 rounded">Like</button>
-                                        </form>
-                                    @endif
-                                @else
-                                    <a href="{{ route('login') }}" class="text-blue-500">Anmelden zum Liken</a>
-                                @endauth
-                            </div>
                         </div>
                     </div>
                     @if($post->image_url)
                         <img src="{{ asset($post->image_url) }}" alt="Beitragsbild" class="rounded-lg mt-2 max-w-xs mx-auto">
                     @endif
+                    <div class="p-4">
+                        @auth
+                            @if($post->likedBy(auth()->user()))
+                                <form action="{{ route('unlike', $post) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="bg-red-500 text-white py-1 px-3 rounded">Dislike</button>
+                                </form>
+                            @else
+                                <form action="{{ route('like', $post) }}" method="POST" class="inline">
+                                    @csrf
+                                    <button class="bg-blue-500 text-white py-1 px-3 rounded">Like</button>
+                                </form>
+                            @endif
+                        @else
+                            <a href="{{ route('login') }}" class="text-blue-500">Anmelden zum Liken</a>
+                        @endauth
+                    </div>
                     <!-- Delete Button -->
                     @if($post->user_id === auth()->id()) 
                         <form action="{{ route('posts.destroy', $post) }}" method="POST" class="inline">
