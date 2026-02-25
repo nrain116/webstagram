@@ -1,1 +1,8 @@
-/vendor/
+/vendor
+/.env
+/storage/*
+!storage/app
+!storage/public
+!storage/framework/cache/*
+!storage/framework/views/*
+!storage/logs/*.log
